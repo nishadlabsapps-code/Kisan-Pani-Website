@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kisan Pani Calculator</title>
+
+<style>
+html{scroll-behavior:smooth;}
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial,sans-serif;
+}
+
+body{
+background:#0a0a0a;
+color:white;
+overflow-x:hidden;
+}
+
+header{
+background:rgba(0,0,0,0.92);
+padding:15px 20px;
+position:fixed;
+width:100%;
+top:0;
+z-index:1000;
+}
+
+nav{
+display:flex;
+justify-content:space-between;
+align-items:center;
+}
+
+.logo-box{
+display:flex;
+align-items:center;
+gap:10px;
+}
+
+.logo-box img{
+width:38px;
+height:38px;
+border-radius:10px;
+box-shadow:0 0 10px rgba(0,255,136,0.4);
+}
+
+.logo-box h1{
+color:#00ff88;
+font-size:20px;
+}
+
+.nav-links{
+display:flex;
+list-style:none;
+}
+
+.nav-links li{
+margin-left:20px;
+}
+
+.nav-links li a{
+color:white;
+text-decoration:none;
+font-size:15px;
+}
+
+.lang-switch{
+display:flex;
+gap:6px;
+}
+
+.lang-switch button{
+background:#00ff88;
+border:none;
+padding:5px 9px;
+font-size:12px;
+border-radius:5px;
+cursor:pointer;
+font-weight:bold;
+}
+
+.menu-toggle{
+display:none;
+font-size:28px;
+cursor:pointer;
+color:white;
+}
+
+.hero{
+height:100vh;
+background:url('farm-bg.jpg') center/cover no-repeat;
+display:flex;
+justify-content:center;
+align-items:center;
+text-align:center;
+padding:20px;
+}
+
+.overlay{
+background:rgba(0,0,0,0.65);
+padding:35px;
+border-radius:20px;
+max-width:700px;
+}
+
+.overlay h2{
+font-size:34px;
+line-height:1.3;
+margin-bottom:20px;
+}
+
+.overlay p{
+font-size:18px;
+margin-bottom:15px;
+}
+
+section{
+padding:70px 20px;
+}
+
+.section-title{
+text-align:center;
+font-size:32px;
+margin-bottom:40px;
+color:#00ff88;
+}
+
+.cards{
+display:flex;
+justify-content:center;
+gap:20px;
+flex-wrap:wrap;
+}
+
+.card{
+background:#151515;
+padding:22px;
+width:280px;
+border-radius:15px;
+text-align:center;
+box-shadow:0 0 15px rgba(0,255,136,0.2);
+transition:0.4s;
+}
+
+.card img{
+width:100%;
+border-radius:15px;
+}
+
+.feature-detail{
+opacity:0;
+max-height:0;
+overflow:hidden;
+transition:0.4s;
+font-size:14px;
+margin-top:10px;
+color:#ccc;
+}
+
+.feature-card:hover .feature-detail{
+opacity:1;
+max-height:120px;
+}
+
+.ad-box{
+background:#151515;
+padding:35px;
+border-radius:15px;
+max-width:900px;
+margin:auto;
+text-align:center;
+color:#888;
+font-size:18px;
+}
+
+.privacy{
+background:#111;
+padding:35px;
+border-radius:15px;
+text-align:center;
+max-width:900px;
+margin:auto;
+}
+
+.contact{
+text-align:center;
+line-height:2;
+}
+
+.contact a{
+color:#00ff88;
+text-decoration:none;
+font-size:18px;
+}
+
+.floating-btn{
+position:fixed;
+bottom:15px;
+right:15px;
+z-index:999;
+}
+
+footer{
+background:black;
+text-align:center;
+padding:25px;
+color:#999;
+font-size:14px;
+}
+
+@media(max-width:768px){
+
+.nav-links{
+display:none;
+flex-direction:column;
+position:absolute;
+top:60px;
+right:15px;
+background:#111;
+padding:20px;
+border-radius:10px;
+width:220px;
+}
+
+.nav-links.active{
+display:flex;
+}
+
+.nav-links li{
+margin:10px 0;
+}
+
+.menu-toggle{
+display:block;
+}
+
+.logo-box h1{
+font-size:16px;
+}
+
+.overlay{
+max-width:95%;
+padding:25px;
+}
+
+.overlay h2{
+font-size:26px;
+}
+
+.overlay p{
+font-size:16px;
+}
+
+.card{
+width:100%;
+}
+
+.feature-detail{
+opacity:1;
+max-height:120px;
+}
+
+.floating-btn img{
+width:110px;
+}
+}
+</style>
+</head>
+<body>
+
+<header>
+<nav>
+
+<div class="logo-box">
+<img src="logo.png">
+<h1>Kisan Pani Calculator</h1>
+</div>
+
+<ul class="nav-links" id="navLinks">
+<li><a href="#home" id="m1">Home</a></li>
+<li><a href="#features" id="m2">Features</a></li>
+<li><a href="#download" id="m3">Download</a></li>
+<li><a href="https://sites.google.com/view/kisanpani-privacy/home" target="_blank" id="m4">Privacy Policy</a></li>
+<li><a href="#contact" id="m5">Contact</a></li>
+</ul>
+
+<div style="display:flex; align-items:center; gap:8px;">
+<div class="lang-switch">
+<button onclick="setHindi()">हिं</button>
+<button onclick="setEnglish()">EN</button>
+</div>
+
+<div class="menu-toggle" onclick="toggleMenu()">☰</div>
+</div>
+
+</nav>
+</header>
+
+<section class="hero" id="home">
+<div class="overlay">
+<h2 id="mainTitle">Calculate Irrigation Time and Cost Accurately</h2>
+<p id="mainDesc">Enter pump start and stop time to calculate total duration and cost instantly.</p>
+<p id="mainHindi">सिंचाई समय और खर्च का आसान हिसाब</p>
+
+<a href="https://play.google.com/store/apps/details?id=com.ranjeet.kisanpanicalculator&pcampaignid=web_share">
+<img src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg" width="220">
+</a>
+</div>
+</section>
+
+<section>
+<div class="ad-box">
+Advertisement space available soon
+</div>
+</section>
+
+<section id="features">
+<h2 class="section-title" id="ftitle">App Features</h2>
+
+<div class="cards">
+
+<div class="card feature-card">
+<h3 id="f1">Smart Irrigation Time Calculation</h3>
+<p class="feature-detail" id="d1">Enter pump start and stop time to calculate irrigation duration instantly.</p>
+</div>
+
+<div class="card feature-card">
+<h3 id="f2">Accurate Cost Estimation</h3>
+<p class="feature-detail" id="d2">Set rate and calculate exact irrigation cost.</p>
+</div>
+
+<div class="card feature-card">
+<h3 id="f3">Offline Working Support</h3>
+<p class="feature-detail" id="d3">App works smoothly without internet connection.</p>
+</div>
+
+<div class="card feature-card">
+<h3 id="f4">Multi Record Management</h3>
+<p class="feature-detail" id="d4">Save and manage multiple irrigation records.</p>
+</div>
+
+<div class="card feature-card">
+<h3 id="f5">Theme Color Options</h3>
+<p class="feature-detail" id="d5">Customize app appearance with colors.</p>
+</div>
+
+<div class="card feature-card">
+<h3 id="f6">Quick Search Feature</h3>
+<p class="feature-detail" id="d6">Search saved records quickly.</p>
+</div>
+
+</div>
+</section>
+
+<section>
+<h2 class="section-title">App Screenshots</h2>
+
+<div class="cards">
+<div class="card"><img src="screenshot1.jpg"></div>
+<div class="card"><img src="screenshot2.jpg"></div>
+<div class="card"><img src="screenshot3.jpg"></div>
+</div>
+</section>
+
+<section>
+<h2 class="section-title" id="trust">Trusted by Farmers</h2>
+
+<div class="privacy">
+<p id="trustText">Many farmers use this app daily for irrigation timing and cost calculation.</p>
+</div>
+</section>
+
+<section id="download">
+<h2 class="section-title" id="down">Download App</h2>
+
+<div class="contact">
+<a href="https://play.google.com/store/apps/details?id=com.ranjeet.kisanpanicalculator&pcampaignid=web_share">
+<img src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg" width="250">
+</a>
+</div>
+</section>
+
+<section id="contact">
+<h2 class="section-title" id="ctitle">Contact Developer</h2>
+
+<div class="contact">
+<p>Nishad Labs</p>
+<p>nishadlabs.apps@gmail.com</p>
+</div>
+</section>
+
+<section>
+<h2 class="section-title">Follow Us On</h2>
+
+<div class="contact">
+<p>📷 <a href="https://www.instagram.com/nishadlabs?igsh=b3k2b284bmd1bDI2">Instagram</a></p>
+<p>▶ <a href="https://youtube.com/@nishadlabs?si=Gr4OevNsrKncnfE0">YouTube</a></p>
+<p>💬 <a href="https://whatsapp.com/channel/0029Vb7B5DjAInPl8uuv553z">WhatsApp</a></p>
+</div>
+</section>
+
+<div class="floating-btn">
+<a href="https://play.google.com/store/apps/details?id=com.ranjeet.kisanpanicalculator&pcampaignid=web_share">
+<img src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg" width="140">
+</a>
+</div>
+
+<footer>
+© 2026 Kisan Pani Calculator | Developed by Nishad Labs<br>
+For farmers • Simple • Accurate • Offline
+</footer>
+
+<script>
+function toggleMenu(){
+document.getElementById("navLinks").classList.toggle("active");
+}
+
+function setHindi(){
+document.getElementById("mainTitle").innerText="सिंचाई के समय और लागत की सही गणना करें";
+document.getElementById("mainDesc").innerText="पंप चालू और बंद समय डालकर कुल समय और खर्च तुरंत निकालें।";
+document.getElementById("mainHindi").innerText="किसानों के लिए आसान सिंचाई कैलकुलेशन";
+}
+
+function setEnglish(){
+location.reload();
+}
+</script>
+
+</body>
+</html>
